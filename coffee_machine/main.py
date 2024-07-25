@@ -35,7 +35,7 @@ resources = {
 def check_resources(ingredients):
     """Returns True when order can be made, False if ingredients are insufficient."""
     for item in ingredients:
-        if ingredients[item] > resources[item]:
+        if ingredients[item] >= resources[item]:
             print(f"Sorry, there is not enough {item}.")
             return False
     return True
