@@ -1,0 +1,42 @@
+question_data = [
+    {
+        "type": "boolean",
+        "difficulty": "medium",
+        "category": "Sports",
+        "question": "Tennis was once known as Racquetball.",
+        "correct_answer": "False",
+        "incorrect_answers": ["True"]
+    },
+    {
+        "type": "boolean",
+        "difficulty": "medium",
+        "category": "Sports",
+        "question": "During Wimbledon, spectators in the grounds can buy the tennis balls that have "
+                    "been used in matches.",
+        "correct_answer": "True",
+        "incorrect_answers": ["False"]},
+    {"type": "boolean", "difficulty": "easy", "category": "Sports",
+     "question": "In Rugby League, performing a &quot;40-20&quot; is punished by a free kick for the opposing team.",
+     "correct_answer": "False", "incorrect_answers": ["True"]},
+    {"type": "boolean", "difficulty": "easy", "category": "Sports",
+     "question": "Roger Federer is a famous soccer player.",
+     "correct_answer": "False", "incorrect_answers": ["True"]},
+    {"type": "boolean", "difficulty": "easy", "category": "Sports",
+     "question": "In association football, or soccer, a corner kick is when the game restarts after someone scores a goal.",
+     "correct_answer": "False", "incorrect_answers": ["True"]},
+    {"type": "boolean", "difficulty": "medium", "category": "Sports",
+     "question": "Wilt Chamberlain scored his infamous 100-point-game against the New York Knicks in 1962.",
+     "correct_answer": "True", "incorrect_answers": ["False"]},
+    {"type": "boolean", "difficulty": "medium", "category": "Sports",
+     "question": "Formula E is an auto racing series that uses hybrid electric race cars.",
+     "correct_answer": "False", "incorrect_answers": ["True"]},
+    {"type": "boolean", "difficulty": "medium", "category": "Sports",
+     "question": "Skateboarding was included in the 2020 Summer Olympics in Tokyo.",
+     "correct_answer": "True", "incorrect_answers": ["False"]},
+    {"type": "boolean", "difficulty": "medium", "category": "Sports",
+     "question": "Soccer player Cristiano Ronaldo opened a museum dedicated to himself.",
+     "correct_answer": "True", "incorrect_answers": ["False"]},
+    {"type": "boolean", "difficulty": "medium", "category": "Sports",
+     "question": "The Olympics tennis court is a giant green screen.",
+     "correct_answer": "True", "incorrect_answers": ["False"]}
+]
