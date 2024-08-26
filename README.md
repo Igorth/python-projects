@@ -1,4 +1,5 @@
 # Python Projects
+![Python](https://img.shields.io/badge/Python-3.x-blue.svg)
 
 Welcome to my Python Projects repository! This collection of projects showcases my journey of learning Python through practical examples. 
 Each project applies various fundamental Python concepts, providing a hands-on approach to mastering the language.
