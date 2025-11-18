@@ -2,6 +2,21 @@ import sys
 import socket
 from datetime import datetime
 import threading
+from threading import Lock
+
+# Simple color codes
+GREEN = "\033[92m"
+YELLOW = "\033[93m"
+RED = "\033[91m"
+RESET = "\033[0m"
+
+# Lock used to prevent multiple threads from printing at the same time.
+# Without this, the output from different threads would overlap and become unreadable.
+print_lock = Lock()
+
+def print_safe(message):
+    with print_lock:
+        print(message)
 
 # Function to scan a port
 def scan_port(target, port):
@@ -10,7 +25,7 @@ def scan_port(target, port):
         s.settimeout(1)
         result = s.connect_ex((target, port)) # Error indicator - if 0 port is open
         if result == 0:
-            print(f"Port {port} is open")
+            print_safe(f"{GREEN}[OPEN]{RESET} TCP Port {port}")
         s.close()
     except socket.error as e:
         print(f"Socket error on port {port}: {e}")
