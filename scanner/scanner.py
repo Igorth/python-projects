@@ -47,7 +47,7 @@ def main():
     try:
         target_ip = socket.gethostbyname(target)
     except socket.gaierror:
-        print(f"Error: Unable to resolve hostname {target}")
+        print(f"{RED}Error: Unable to resolve hostname {target}{RESET}")
         sys.exit(1)
 
     # Add a banner
