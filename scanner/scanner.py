@@ -1,8 +1,10 @@
 import sys
 import socket
-from datetime import datetime
 import threading
+import time
+from datetime import datetime
 from threading import Lock
+from concurrent.futures import ThreadPoolExecutor
 
 # Simple color codes
 GREEN = "\033[92m"
@@ -49,31 +51,30 @@ def main():
         sys.exit(1)
 
     # Add a banner
-    print("-" * 50)
-    print(f"Scanning target {target_ip}")
-    print(f"Time started: {datetime.now()}")
-    print("-" * 50)
+    print("-" * 60)
+    print(f"Scanning target: {target_ip}")
+    print(f"Scan Start: {datetime.now()}")
+    print("-" * 60)
 
-    try:
-        # Use multithreading to scan port concurrently
-        threads = []
-        for port in range(1, 65536):
-            thread = threading.Thread(target=scan_port, args=(target_ip, port))
-            threads.append(thread)
-            thread.start()
-        
-        # Wait for all threads to complete
-        for thread in threads:
-            thread.join()
+    start_time = time.time()
+
+    # # Define the maximum number of threads that can run simultaneously.
+    max_threads = 500
+    ports = range(1, 65536)
+
+    # Create a thread pool to execute port scans concurrently.
+    # The ThreadPoolExecutor automatically manages thread creation and cleanup.
+    with ThreadPoolExecutor(max_threads) as executor:
+        for port in ports:
+            executor.submit(scan_port, target_ip, port)
     
-    except KeyboardInterrupt:
-        print("\nExiting program.")
-        sys.exit(0)
-    
-    except socket.error as e:
-        print(f"Socket error: {e}")
-    
-    print("\nScan completed!")
+    end_time = time.time()
+    duration = round(end_time - start_time, 2)
+
+    print("\n" + "-" * 60)
+    print(f"Scanning completed in {duration} seconds")
+    print(f"Total Ports Scanned: {len(ports)} TCP")
+    print("-" * 60)
 
 
 if __name__ == "__main__":
