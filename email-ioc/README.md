@@ -61,3 +61,7 @@ This tool should only be used on:
 - Lab environments (TryHackMe, Hack The Box, local VMs)
 
 Unauthorized port scanning may be illegal and violate acceptable use policies.
+
+### Resources
+
+TCM Courses

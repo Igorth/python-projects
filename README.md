@@ -18,3 +18,7 @@ All projects are designed for:
 
 > ⚠️ These tools are intended for **educational and defensive purposes only**.  
 > Use them only on systems you own or have explicit permission to test.
+
+### Resources
+
+TCM Courses
