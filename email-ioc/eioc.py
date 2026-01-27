@@ -50,10 +50,30 @@ def extract_urls(email_message):
             urls.update(re.findall(r'https?:\/\/(?:[\w\-]+\.)+[a-z]{2,}(?:\/[\w\-\.\/?%&=]*)?', payload))
     return list(urls)
 
+def extract_headers(email_message):
+    headers_to_extract = [
+        "Date",
+        "Subject",
+        "To",
+        "From",
+        "Reply-To",
+        "Return-Path",
+        "Message-ID",
+        "X-Originating-IP",
+        "X-Sender-IP",
+        "Authentication-Results"
+    ]
+    headers = {}
+    for key in email_message.keys():
+        if key in headers_to_extract:
+            headers[key] = email_message[key]
+    return headers
+
 def main(file_path):
     email_message = read_file(file_path)
     ips = extract_ips(email_message)
     urls = extract_urls(email_message)
+    headers = extract_headers(email_message)
     print()
 
 if __name__ == "__main__":
