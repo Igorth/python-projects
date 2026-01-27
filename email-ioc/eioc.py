@@ -50,6 +50,54 @@ def extract_urls(email_message):
             urls.update(re.findall(r'https?:\/\/(?:[\w\-]+\.)+[a-z]{2,}(?:\/[\w\-\.\/?%&=]*)?', payload))
     return list(urls)
 
+def defang_ip(ip):
+    return ip.replace('.', '[.]')
+
+def is_reserved_ip(ip):
+    private_ranges = [
+        '10.0.0.0/8',
+        '172.16.0.0/12',
+        '192.168.0.0/16',
+    ]
+    reserved_ranges = [
+        '0.0.0.0/8',
+        '100.64.0.0/10',
+        '169.254.0.0/16',
+        '192.0.0.0/24',
+        '192.0.2.0/24',
+        '198.51.100.0/24',
+        '203.0.113.0/24',
+        '224.0.0.0/4', 
+        '240.0.0.0/4',
+    ]
+    for r in private_ranges + reserved_ranges:
+        if ipaddress.ip_address(ip) in ipaddress.ip_network(r):
+            return True
+    return False
+
+def ip_lookup(ip):
+    if is_reserved_ip(ip):
+        return None
+    
+    try:
+        url = f"https://ipinfo.io/{ip}/json"
+        response = requests.get(url, timeout=5)
+        if response.status_code == 200:
+            data = response.json()
+            return {
+                'IP': data.get('ip', ''),
+                'City': data.get('city', ''),
+                'Region': data.get('region', ''),
+                'Country': data.get('country', ''),
+                'Location': data.get('loc', ''),
+                'ISP': data.get('org', ''),
+                'Postal Code': data.get('postal', ''),
+            }
+    except (requests.RequestException, ValueError) as e:
+        pass
+
+    return None
+
 def extract_headers(email_message):
     headers_to_extract = [
         "Date",
@@ -93,7 +141,13 @@ def main(file_path):
     urls = extract_urls(email_message)
     headers = extract_headers(email_message)
     attachments = extract_attachments(email_message)
-    print()
+
+    print("Extracted IP Addresses:")
+    print("===============================")
+    for ip in ips:
+        defanged_ip = defang_ip(ip)
+        ip_info = ip_lookup(ip)
+        print(ip_info)
 
 if __name__ == "__main__":
     if len(sys.argv) != 2:
