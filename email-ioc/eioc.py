@@ -162,6 +162,11 @@ def main(file_path):
     for url in urls:
         print(defang_url(url))
 
+    print("\nExtracted Headers:")
+    print("===============================")
+    for key, value in headers.items():
+        print(f"{key}: {value}")
+
 if __name__ == "__main__":
     if len(sys.argv) != 2:
         print(f"Usage: python {sys.argv[0]} <file_path>")
