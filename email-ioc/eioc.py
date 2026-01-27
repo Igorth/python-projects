@@ -69,11 +69,30 @@ def extract_headers(email_message):
             headers[key] = email_message[key]
     return headers
 
+def extract_attachments(email_message):
+    attachments = []
+    
+    for part in email_message.walk():
+        if part.get_content_maintype() == 'multipart':
+            continue
+        if part.get('Content-Disposition') is None:
+            continue
+        filename = part.get_filename()
+        if filename:
+            attachments.append({
+                'filename': filename,
+                'md5': hashlib.md5(part.get_payload(decode=True)).hexdigest(),
+                'sha1': hashlib.sha1(part.get_payload(decode=True)).hexdigest(),
+                'sha256': hashlib.sha256(part.get_payload(decode=True)).hexdigest()
+            })
+    return attachments
+
 def main(file_path):
     email_message = read_file(file_path)
     ips = extract_ips(email_message)
     urls = extract_urls(email_message)
     headers = extract_headers(email_message)
+    attachments = extract_attachments(email_message)
     print()
 
 if __name__ == "__main__":
