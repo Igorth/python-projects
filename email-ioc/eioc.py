@@ -53,6 +53,11 @@ def extract_urls(email_message):
 def defang_ip(ip):
     return ip.replace('.', '[.]')
 
+def defang_url(url):
+    url = url.replace('https://', 'hxxps[://]')
+    url = url.replace('.', '[.]')
+    return url
+
 def is_reserved_ip(ip):
     private_ranges = [
         '10.0.0.0/8',
@@ -151,6 +156,11 @@ def main(file_path):
             print(f"{defanged_ip} - {ip_info['City']}, {ip_info['Region']}, {ip_info['Country']}, ISP: {ip_info['ISP']}")
         else:
             print(defanged_ip)
+
+    print("\nExtracted URLs:")
+    print("===============================")
+    for url in urls:
+        print(defang_url(url))
 
 if __name__ == "__main__":
     if len(sys.argv) != 2:
