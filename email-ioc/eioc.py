@@ -147,7 +147,10 @@ def main(file_path):
     for ip in ips:
         defanged_ip = defang_ip(ip)
         ip_info = ip_lookup(ip)
-        print(ip_info)
+        if ip_info:
+            print(f"{defanged_ip} - {ip_info['City']}, {ip_info['Region']}, {ip_info['Country']}, ISP: {ip_info['ISP']}")
+        else:
+            print(defanged_ip)
 
 if __name__ == "__main__":
     if len(sys.argv) != 2:
