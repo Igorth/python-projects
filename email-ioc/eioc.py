@@ -167,6 +167,15 @@ def main(file_path):
     for key, value in headers.items():
         print(f"{key}: {value}")
 
+    print("\nExtracted Attachments:")
+    print("===============================")
+    for attachment in attachments:
+        print(f"Filename: {attachment['filename']}")
+        print(f"MD5: {attachment['md5']}")
+        print(f"SHA1: {attachment['sha1']}")
+        print(f"SHA256: {attachment['sha256']}")
+        print()
+
 if __name__ == "__main__":
     if len(sys.argv) != 2:
         print(f"Usage: python {sys.argv[0]} <file_path>")
